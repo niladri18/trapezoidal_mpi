@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include "mpi.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -15,20 +16,27 @@ float trap(float a, float b, int n, float h)
 	float x;
 	int i;
 	x = a;	
-	integral = (func(a) + func(b) )/2.0;
+	integral = (f2(a) + f2(b) )/2.0;
 	for(i = 0; i < n-1; i++)
 	{
 		x = x + h;
-		integral = integral + func(x);	
+		integral = integral + f2(x);	
 	}
 	return integral*h;
 }
 
 int main()
 {
+
+	/*
+ 	Lower bound = a
+	Upper bound = b
+	number of steps = n
+	defined function in utils.cpp
+ 	*/
 	float a = 0.0;
 	float b = 1.0;
-	int n = 1000;
+	int n = 10000;
 	
 	MPI_Init(NULL, NULL);
 	
